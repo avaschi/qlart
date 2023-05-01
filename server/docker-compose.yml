@@ -1,0 +1,21 @@
+services:
+  qlart-adminer:
+    image: adminer
+    container_name: qlart-adminer
+    restart: unless-stopped
+    ports:
+      - 8888:8080
+
+  qlart-db:
+    image: postgres:15-alpine
+    container_name: qlart-db
+    restart: always
+    env_file:
+      - ./database.env
+    volumes:
+      - qlart-db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  qlart-db:
